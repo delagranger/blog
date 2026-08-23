@@ -1,3 +1,19 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseBadRequest
 
-# Create your views here.
+def main_page(request):
+    if request.method == "GET":
+        return HttpResponse("Welcome to my blog!")
+    else:
+        return HttpResponseBadRequest("Incorrect request method")
+
+
+def get_about_info(request):
+    if request.method == "GET":
+        return HttpResponse("Easy blog on Django")
+    else:
+        return HttpResponseBadRequest("Incorrect request method")
+
+
+def get_post_by_id(request, id):
+    return HttpResponse(f"You`ve opened post {id}")
