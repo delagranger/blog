@@ -5,8 +5,12 @@ class Post(models.Model):
     body = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
+
