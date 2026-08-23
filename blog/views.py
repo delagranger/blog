@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 
+from blog.models import Post
+
 def main_page(request):
-    if request.method == "GET":
-        return HttpResponse("Welcome to my blog!")
-    else:
-        return HttpResponseBadRequest("Incorrect request method")
+    posts = Post.objects.all()
+    return render(request, "blog/main_page.html", {"posts": posts})
 
 
 def get_about_info(request):
