@@ -11,3 +11,14 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_char_count(self, obj):
         return len(obj.body)
+
+class CommentSerializer(serializers.ModelSerializer):
+    char_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = ["id", "post", "text", "author", "creation_date"]
+        read_only_fields = ["id", "post", "author", "creation_date"]
+
+    def get_char_count(self, obj):
+        return len(obj.text)
