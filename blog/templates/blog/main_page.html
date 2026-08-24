@@ -4,7 +4,13 @@
 
 {% block body %}
     <h1>Добро пожаловать!</h1>
+
+    <h2>Последние посты:</h2>
     {% for post in posts %}
-        <h2>{{ post.title }}</h2>
+        <h3>
+            <a href="{% url 'post' post.pk %}">{{ post.title }}</a>
+        </h3>
+    {% empty %}
+        <p>Пока нет ни одного поста.</p>
     {% endfor %}
 {% endblock %}

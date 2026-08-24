@@ -13,6 +13,9 @@ class PostsList(ListView):
     template_name = "blog/main_page.html"
     context_object_name = "posts"
 
+    def get_queryset(self):
+        return Post.objects.order_by("-creation_date")[:5]
+
 
 class PostInfo(LoginRequiredMixin, DetailView):
     model = Post
@@ -49,3 +52,4 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, "registration/register.html", {"form": form})
+
