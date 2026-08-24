@@ -7,7 +7,7 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.body }}</p>
     <p>{{ post.creation_date }}</p>
-    <p>Автор: {{ post.author.username }}</p>          
+    <p>Автор: {{ post.author.username }}</p>
 
     {% if post.tags.all %}
         <p>Теги:
@@ -16,4 +16,15 @@
             {% endfor %}
         </p>
     {% endif %}
+
+    <h2>Комментарии</h2>
+    {% for comment in post.comment_set.all %}
+        <div>
+            <strong>{{ comment.author.username }}</strong>
+            <small>{{ comment.creation_date }}</small>
+            <p>{{ comment.text }}</p>
+        </div>
+    {% empty %}
+        <p>Комментариев пока нет.</p>
+    {% endfor %}
 {% endblock %}
