@@ -1,12 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.views.generic import ListView, DetailView
 
 from blog.models import Post
 from blog.forms import CommentForm
 
-def main_page(request):
-    posts = Post.objects.all()
-    return render(request, "blog/main_page.html", {"posts": posts})
+class PostsList(ListView):
+    model = Post
+    template_name = "blog/main_page.html"
+    context_object_name = "posts"
+
+
+class PostInfo(DetailView):
+    model = Post
+    template_name = "blog/post_info.html"
+    context_object_name = "post"
 
 
 def get_about_info(request):
@@ -14,10 +22,6 @@ def get_about_info(request):
         return HttpResponse("Easy blog on Django")
     else:
         return HttpResponseBadRequest("Incorrect request method")
-
-
-def get_post_by_id(request, id):
-    return HttpResponse(f"You`ve opened post {id}")
 
 
 def add_comment(request):
