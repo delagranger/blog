@@ -4,6 +4,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to="posts/", blank=True)
 
     def __str__(self):
         return self.title
@@ -12,6 +13,6 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = models.CharField(max_length=100)
-    user = models.CharField(max_length=10)
+    user = models.CharField(max_length=10, default="anon")
     creation_date = models.DateTimeField(auto_now_add=True)
 
