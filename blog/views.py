@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
 
 from blog.models import Post
 from blog.forms import CommentForm
+
 
 class PostsList(ListView):
     model = Post
@@ -11,7 +14,7 @@ class PostsList(ListView):
     context_object_name = "posts"
 
 
-class PostInfo(DetailView):
+class PostInfo(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "blog/post_info.html"
     context_object_name = "post"
@@ -34,3 +37,15 @@ def add_comment(request):
         form = CommentForm()
 
     return render(request, "blog/form.html", {"form": form})
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "registration/register.html", {"form": form})
