@@ -10,6 +10,7 @@ from blog.serializers import PostSerializer, CommentSerializer, TagSerializer
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
+    queryset = Post.objects.prefetch_related('comments', 'tags').all()
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['creation_date', 'title']
