@@ -9,8 +9,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ["id", "post", "text", "author", "author_username", "creation_date", "char_count"]
-        read_only_fields = ["id", "author", "author_username", "creation_date", "char_count"]
+        fields = ["id", "post", "post_title", "text", "author", "author_username", "creation_date", "char_count"]
+        read_only_fields = ["id", "post", "post_title", "author", "author_username", "creation_date", "char_count"]
 
     def get_char_count(self, obj):
         return len(obj.text)
